@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+
+<body ng-app="app" ng-controller="myCtrl">
+  <h3>LA RE CONCHA DE TU VIEJA
+    <input type="text" ng-model="sorete">
+    <h3>
+      {% raw %}
+      aca: {{sorete}}
+      {% endraw %}
+    </h3>
+  </h3>
+
+  
+</body>
+<script>
+  app = angular.module('app', []);
+  app.controller('myCtrl', function ($scope) 
+  {
+    $scope.sorete="chota"
+    $scope.$evalAsync();
+  });
+</script>
+
+</html>

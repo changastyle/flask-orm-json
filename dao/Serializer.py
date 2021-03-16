@@ -5,26 +5,27 @@ class Serializer(object):
 
     def serializar(self):
 
-
         arrAttrs = {};
-        for nombreAttrLoop in inspect(self).attrs.keys():
-            valorLoop = getattr(self, nombreAttrLoop)
-            tipo = str(type(valorLoop))
+        if self != None:
 
-            if tipo == "<class 'datetime.datetime'>":
-                print("valor loop:", valorLoop)
-                fecha = datetime.datetime.strptime(str(valorLoop), '%Y-%m-%d %H:%M:%S')
-                print("fecha:", fecha)
-                longFecha = fecha.timestamp()
-                print("ENTRE A FECHA")
-                print(nombreAttrLoop +" - tipo:" + str(tipo) + " = " + str(longFecha))
-                valorLoop = int(longFecha)
-            else:
-                print(nombreAttrLoop + " - tipo:" + str(tipo) + " = " + str(valorLoop))
+            for nombreAttrLoop in inspect(self).attrs.keys():
+                valorLoop = getattr(self, nombreAttrLoop)
+                tipo = str(type(valorLoop))
 
-            arrAttrs[nombreAttrLoop] = valorLoop
+                if tipo == "<class 'datetime.datetime'>":
+                    print("valor loop:", valorLoop)
+                    fecha = datetime.datetime.strptime(str(valorLoop), '%Y-%m-%d %H:%M:%S')
+                    print("fecha:", fecha)
+                    longFecha = fecha.timestamp()
+                    print("ENTRE A FECHA")
+                    print(nombreAttrLoop +" - tipo:" + str(tipo) + " = " + str(longFecha))
+                    valorLoop = int(longFecha)
+                else:
+                    print(nombreAttrLoop + " - tipo:" + str(tipo) + " = " + str(valorLoop))
 
-       # return {c: getattr(self, c) for c in inspect(self).attrs.keys()}
+                arrAttrs[nombreAttrLoop] = valorLoop
+
+           # return {c: getattr(self, c) for c in inspect(self).attrs.keys()}
         return arrAttrs
 
     def serializarL(lista):

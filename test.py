@@ -2,7 +2,7 @@ from dao import dao
 from modelo.Producto import Producto
 
 
-def chota():
+def repoblarDBS():
 
     dao.Base.metadata.create_all(dao.engine)
 
@@ -12,6 +12,6 @@ def chota():
     dao.session.commit()
     print(arroz.id)
 
-chota()
+repoblarDBS()
 
 

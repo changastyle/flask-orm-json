@@ -21,3 +21,5 @@ engine = create_engine(f'mysql+pymysql://{user}:{passwd}@{host}/{database}')
 Base = declarative_base(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
+
+# Base.metadata.create_all(engine)

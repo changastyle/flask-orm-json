@@ -1,0 +1,5 @@
+__pycache__/app.cpython-39.pyc
+dao/__pycache__/dao.cpython-39.pyc
+dao/__pycache__/Serializer.cpython-39.pyc
+modelo/__pycache__/Producto.cpython-39.pyc
+ws/__pycache__/wsProductos.cpython-39.pyc

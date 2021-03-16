@@ -9,7 +9,7 @@ class Producto(dao.Base):
     nombre = Column(Text, nullable=False)
     precio = Column(Float)
     fechaAlta = Column(dao.TIMESTAMP, default=datetime.datetime.utcnow())
-    arrFotos = ["perfil.jpg","frontal.jpg", "default.png"]
+    #arrFotos = ["perfil.jpg","frontal.jpg", "default.png"]
 
     def __init__(self, nombre, precio):
         self.nombre = nombre
@@ -19,14 +19,18 @@ class Producto(dao.Base):
         return self.nombre
 
     def serialize(self):
-        diccionarioSerializado = Serializer.serializar(self)
-        print("TIPO SERIALIZAER:", str(type(diccionarioSerializado)))
-        #del d['password']
+        diccionarioSerializado = {}
 
-        # AGREGAR CAMPOS COMO TRANSIENT:
-        diccionarioSerializado['arrFotos'] = self.arrFotos
+        if self != None:
 
-        #QUITAR CAMPOS AL DICCIONARIO:
-        #diccionarioSerializado.pop("precio")
+            diccionarioSerializado = Serializer.serializar(self)
+            print("TIPO SERIALIZAER:", str(type(diccionarioSerializado)))
+            #del d['password']
+
+            # AGREGAR CAMPOS COMO TRANSIENT:
+            #diccionarioSerializado['arrFotos'] = self.arrFotos
+
+            #QUITAR CAMPOS AL DICCIONARIO:
+            #diccionarioSerializado.pop("precio")
 
         return diccionarioSerializado
