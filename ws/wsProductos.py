@@ -1,21 +1,43 @@
 from flask import Flask, jsonify, make_response, json
-from dao import dao, Serializer
+from ct import db, Serializer
 from modelo.Producto import Producto
 from flask import Blueprint, render_template
 
-productos = Blueprint('productos',__name__,static_folder='static', template_folder='templates')
+wsProductos = Blueprint('wsProductos',__name__,static_folder='static', template_folder='templates')
 
-@productos.route('/getProducto/<id>')
+
+@wsProductos.route('/productos')
+def ventanaProductos():
+    return render_template('productos/productos.html')
+
+@wsProductos.route('/getProducto/<id>')
 def getProducto(id):
-    rta = dao.session.query(Producto).filter_by(id=id).first()
+    rta = db.session.query(Producto).filter_by(id=id).first()
     if rta != None:
-        return jsonify(rta.serialize())
+        return jsonify(rta.serializar())
     else:
         return jsonify(None)
 
 
-@productos.route('/findProductos')
+@wsProductos.route('/findProductos')
 def findProductos():
-    arrProductos = dao.session.query(Producto).all()
+    arr = db.session.query(Producto).all()
 
-    return jsonify(Serializer.serializarL(arrProductos))
+    arrSerializado = []
+    for itemLoop in arr:
+        arrSerializado.append(itemLoop.serializar()) 
+
+    return jsonify(arrSerializado)
+
+    
+@wsProductos.route('/saveProducto/<nombre>/<precio>')
+def saveProducto(nombre, precio):
+          
+    nvo = Producto(nombre,precio)
+    db.session.add(nvo)
+    db.session.commit()
+
+    if nvo != None:
+        return jsonify(nvo.serializar())
+    else:
+        return jsonify(None)

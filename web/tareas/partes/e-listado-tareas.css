@@ -1,0 +1,22 @@
+.labels {
+	font-weight: bold;
+}
+
+.flex {
+	display: flex;
+}
+
+.item-listado-tareas {
+	border: solid 1px red;
+	border-radius: 50px;
+	padding: 12px;
+}
+
+.descripcion-tarea {
+	border: solid 1px red;
+	/* width: 80px; */
+}
+
+.fecha-entrega-tarea {
+	border: solid 1px red;
+}

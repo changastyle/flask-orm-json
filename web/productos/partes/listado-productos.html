@@ -1,0 +1,31 @@
+<div class="cont-busqueda-productos">
+      <input type="text" ng-model="busqProductos" placeholder="Busqueda.." class="form-control">
+</div>
+
+<div class="cont-listado-productos">
+      <div class="item-producto flex " ng-repeat="producto in arrProductos | filter: busqProductos">
+
+            <div class="check-producto">
+                  <input type="checkbox" ng-model="activo">
+            </div>
+            <div class="nombre-producto">
+                  {{producto.nombre}}
+            </div>
+
+            <div class="precio-producto">
+                  {{"$" + producto.precio}}
+            </div>
+            <!-- {{producto}} -->
+      </div>
+</div>
+
+<style>
+      .flex {
+            display: flex;
+      }
+
+      .nombre-producto {
+            border: solid 1px red;
+            width: 100px;
+      }
+</style>

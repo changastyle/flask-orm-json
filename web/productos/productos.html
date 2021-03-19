@@ -1,0 +1,22 @@
+[% extends 'comun/formato-comun.html' %]
+
+[% block content %]
+
+[% include 'productos/partes/listado-productos.html' %]
+
+<script>
+      app = angular.module('app', []);
+      app.controller('controller', function ($scope) 
+      {
+            [% include 'fn/fn-productos.js' %]
+
+            $scope.init = function ()
+            {
+                  console.log("iniiciando");
+                  $scope.findProductos();
+            }
+            $scope.sorete = "chota"
+            $scope.$evalAsync();
+      });
+</script>
+[% endblock %]

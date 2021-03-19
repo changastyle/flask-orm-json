@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
@@ -8,19 +9,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <title>{% block title%}TEST ORM{% endblock %}</title>
-</head>
-<body >
-    <div class="contenedor-principal">
-        {% block content %}
+    <title>[% block title%]TEST ORM[% endblock %]</title>
 
-        {% endblock %}
+    <link rel="stylesheet" href="res/css/comun.css">
+</head>
+
+<body ng-app="app" ng-controller="controller" ng-init="init()" ng-cloak>
+    <div class="contenedor-principal">
+        [% block content %]
+
+        [% endblock %]
     </div>
 </body>
+
 </html>
 <style>
-    .contenedor-principal
-    {
+    .contenedor-principal {
         border: solid 1px red;
     }
 </style>

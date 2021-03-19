@@ -1,0 +1,24 @@
+[% extends 'comun/formato-comun.html' %]
+
+[% block content %]
+[% include 'tareas/partes/listado-tareas.html'%]
+
+<script>
+      app = angular.module('app', []);
+      app.controller('controller', function ($scope) 
+      {
+            [% include 'fn/fn-tareas.js' %]
+
+            $scope.init = function ()
+            {
+                  console.log("iniiciando");
+                  $scope.findTareas();
+            }
+            $scope.cambioFechaEntrega = function ()
+            {
+
+                  console.log("CAMBIO INPUT FECHA ENTREGA:" + $("#input-fecha-entrega").val());
+            }
+      });
+</script>
+[% endblock %]

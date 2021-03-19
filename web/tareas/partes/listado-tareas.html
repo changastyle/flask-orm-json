@@ -1,0 +1,43 @@
+<div class="cont-listado-tareas">
+
+      <div class="item-listado-tareas flex" ng-repeat="tarea in arrTareas">
+
+            <!-- 1 - CONTENEDOR TEXTOS ITEM TAREAS -->
+            <div class="contendor-textos-item-tareas">
+
+                  <!-- 2 - TITULO TAREAS -->
+                  <div class="titulo-tarea">
+                        {{tarea.titulo}}
+                  </div>
+
+                  <!-- 3 - DESCRIPCION TAREA -->
+                  <div class="descripcion-tarea">
+                        {{tarea.descripcion}}
+                        {{tarea.fkCliente}}
+                  </div>
+            </div>
+
+            2 -
+            <div class="fecha-entrega-tarea">
+                  <label class="labels">Fecha de Entrega</label>
+                  <input id="input-fecha-entrega" class="form-control" type="date"
+                        ng-value="tarea.fechaEntregaJS | date:'yyyy-MM-dd'">
+                  <input id="input-fecha-entrega" class="form-control" type="time"
+                        ng-value="tarea.fechaEntregaJS | date:'hh:mm'">
+                  <!-- <input id="input-fecha-entrega" type="datetime-local"
+                        ng-value="tarea.fechaEntregaJS | date:'dd/MM/yyyy hh:mm'"> -->
+            </div>
+
+            <div class="chota">
+
+            </div>
+
+            <button ng-click="cambioFechaEntrega()">
+                  cambio
+            </button>
+            {{tarea.fechaEntrega}}
+            {{tarea.fechax}}
+      </div>
+
+
+</div>

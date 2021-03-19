@@ -7,10 +7,10 @@ from sqlalchemy.ext.declarative import declarative_base
 host = "localhost"         
 user = "root"          
 passwd = "descargar"    
-database = "TESTSQL"     
+database = "chota"     
 
 # Database connection
-db=pymysql.connect(
+dbc=pymysql.connect(
         host=host,
         user=user,
         passwd=passwd,
@@ -22,4 +22,4 @@ Base = declarative_base(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Base.metadata.create_all(engine)
+Base.metadata.create_all(engine)
