@@ -1,0 +1,84 @@
+<!-- 1 - FOOTER -->
+<div class="footer-bs4 col-12 sin-padding" style="background-color: {{instalacion.colorPri}}"
+      ng-hide="cargandoInstalacion">
+
+      <!-- 2 - CONTENEDOR BURBUJAS: -->
+      <div class="contenedor-global-burbujas col-12 flex sin-padding ">
+
+            <!-- 3 - COL BURBUJA TELEFONO : -->
+            <div class='columna-burbujas col-12 col-sm-12 col-md-6 col-xl-4'>
+
+                  <!-- 4 - BURBUJA TELEFONO -->
+                  <div class='burbujas d-block mx-auto pointer'
+                        ng-click="wpp(instalacion.prefijo, instalacion.telefonoWpp)">
+                        <img class="img img-burbujas" ng-src='{{instalacion.favicon.fullFoto}}/../telefono2.svg'>
+                  </div>
+
+                  <!-- 5 - TXT BURBUJA TELEFONO WPP: -->
+                  <h3 class="txt-burbujas" ng-click="wpp(instalacion.prefijo, instalacion.telefonoWpp)">
+                        <i class="fab fa-whatsapp"></i>
+                        {{instalacion.prefijo}} - {{instalacion.telefonoWpp}}
+                  </h3>
+
+                  <!-- 6 - TXT BURBUJA TELEFONO FIJO: -->
+                  <h3 class="txt-burbujas" ng-click="llamar(instalacion.prefijo, instalacion.telefonoFijo)"
+                        ng-show="instalacion.telefonoFijo.length >0 ">
+                        <i class="fas fa-phone-alt"></i>
+                        {{instalacion.prefijo}} - {{instalacion.telefonoFijo}}
+                  </h3>
+            </div>
+
+            <!-- 7 - COL BURBUJA EMAIL : -->
+            <div class='columna-burbujas col-4 mx-auto pointer d-none d-xl-block '
+                  ng-click="emailear(instalacion.email)">
+
+                  <!-- 8 - BURBUJA MAIL -->
+                  <div class='burbujas d-block mx-auto'>
+                        <img class="img img-burbujas" ng-src='{{instalacion.favicon.fullFoto}}/../mail.svg'>
+                  </div>
+
+                  <!-- 9 - TXT BURBUJA EMAIL: -->
+                  <h3 class="txt-burbujas">
+                        {{instalacion.email}}
+                  </h3>
+
+            </div>
+
+            <!-- 10 - COL BURBUJA GMAPS : -->
+            <div class='columna-burbujas col-4 col-md-6 col-xl-4 mx-auto pointer d-none d-md-block '
+                  ng-click="gmapear(instalacion.googleMaps)">
+
+                  <!-- 11 - BURBUJA GMAPS -->
+                  <div class='burbujas d-block mx-auto'>
+                        <img class="img img-burbujas" ng-src='{{instalacion.favicon.fullFoto}}/../pin.svg'>
+                  </div>
+
+                  <!-- 12 - TXT BURBUJA GMAPS -->
+                  <h3 class="txt-burbujas">
+                        {{instalacion.calle}}
+                        <br>
+                        {{instalacion.ciudad}}
+                        <br>
+                        {{instalacion.pais}}
+                  </h3>
+            </div>
+
+      </div>
+
+      <!-- 13 - SUPER FOOTER - UN PRODUCTO DE VIEWDEVS -->
+      <div class="super-footer col-12 flex">
+
+            <!-- 14 - TODOS LOS DERECHOS RESERVADOS: -->
+            <div class="col-12 col-md-6 center">
+                  <a href="../abm/abm-productos.jsp" style="text-decoration: none; color: white;">©</a>
+                  <span style="color: white">{{year}} {{instalacion.nombre}} - Todos los derechos reservados</span>
+            </div>
+
+            <!-- 15 - UN PRODUCTO DE VIEW DEVS: -->
+            <div class="col-12 col-md-6 white center">
+                  <a href="http://www.viewdevs.com.ar" style="text-decoration: none; color: white;">
+                        Un producto de View Devs Company
+                  </a>
+            </div>
+      </div>
+</DIV>

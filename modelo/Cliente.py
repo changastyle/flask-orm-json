@@ -2,30 +2,22 @@ import datetime
 
 from sqlalchemy.sql.sqltypes import Boolean
 from ct import db
-from modelo import Cliente
 from ct import controller
-from sqlalchemy import Column, Integer, Float, Text, DateTime ,ForeignKey
+from sqlalchemy import Column, Integer, Float, Text, DateTime , ForeignKey
 from sqlalchemy.orm import relationship
 
-class Tarea(db.Base):
-    __tablename__ = 'tareas'
+class Cliente(db.Base):
+    __tablename__ = 'clientes'
     id = Column(Integer, primary_key=True)
-    titulo = Column(Text, nullable=False)
-    descripcion = Column(Text, nullable=False)
+    nombre = Column(Text, nullable=False)
+    cuit = Column(Text, nullable=False)
     fechaAlta = Column(db.DateTime, default=datetime.datetime.utcnow())
-    fechaEntrega = Column(db.DateTime, default=datetime.datetime.utcnow())
-    activa = Column(Boolean , default=True)
-    terminada = Column(Boolean , default=False)
+    activo = Column(Boolean , default=True)
 
-    fkCliente  = Column(Integer , ForeignKey('clientes.id'))
-    cliente = relationship("Cliente" )
-    #arrFotos = ["perfil.jpg","frontal.jpg", "default.png"]
 
-    def __init__(self, titulo):
-        self.titulo = titulo
 
     def __str__(self):
-        return self.titulo
+        return self.nombre
 
     def serializar(self):
                 

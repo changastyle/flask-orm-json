@@ -2,10 +2,6 @@
 	font-weight: bold;
 }
 
-.flex {
-	display: flex;
-}
-
 .item-listado-tareas {
 	border: solid 1px red;
 	border-radius: 50px;

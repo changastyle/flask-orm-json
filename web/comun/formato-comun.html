@@ -15,11 +15,26 @@
 </head>
 
 <body ng-app="app" ng-controller="controller" ng-init="init()" ng-cloak>
+
+    <!-- 1 - BANNER -->
+    <div class="banner flex">
+        <div class="banner-izq partes-banner">
+            izq
+        </div>
+        <div class="banner-mid partes-banner">
+            mid
+        </div>
+        <div class="banner-der partes-banner">
+            der
+        </div>
+    </div>
     <div class="contenedor-principal">
         [% block content %]
 
         [% endblock %]
     </div>
+
+    [% include 'comun/footer.html'%]
 </body>
 
 </html>

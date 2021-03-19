@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, make_response, json
-from ct import db, Serializer
+from ct import db
 from modelo.Tarea import Tarea
 from flask import Blueprint, render_template
 

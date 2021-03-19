@@ -1,1 +1,20 @@
 @import "chota.css";
+
+.flex {
+	display: flex;
+}
+.banner {
+	border: solid 1px red;
+}
+.partes-banner {
+	border: solid 1px blue;
+}
+.banner-izq {
+	width: 100px;
+}
+.banner-der {
+	width: 100px;
+}
+.banner-mid {
+	width: calc(100% - 200px);
+}

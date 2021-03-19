@@ -3,5 +3,7 @@
             ".gitignore": true,
             ".vscode": true,
             "requirements.txt": true
-      }
+      },
+      "autoHide.autoHidePanel": true,
+      "autoHide.autoHideSideBar": false
 }

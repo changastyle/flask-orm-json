@@ -1,6 +1,6 @@
 import datetime
 from ct import db
-from ct.Serializer import Serializer
+from ct import controller
 from sqlalchemy import Column, Integer, Float, Text, DateTime
 
 class Producto(db.Base):
@@ -19,18 +19,17 @@ class Producto(db.Base):
         return self.nombre
 
     def serializar(self):
-        diccionarioSerializado = {}
+                
+        diccionarioSerializado = controller.serializar(self)
 
-        if self != None:
+        #QUITAR CAMPOS AL DICCIONARIO:
+        # arrAttsRm = ['pass','foto']
+        # for attRm in arrAttsRm:
+        #     if attRm in arrAttrs: 
+        #         del diccionarioSerializado['attRm']
 
-            diccionarioSerializado = Serializer.serializar(self)
-            print("TIPO SERIALIZAER:", str(type(diccionarioSerializado)))
-            #del d['password']
+        # AGREGAR CAMPOS COMO TRANSIENT:
+        #diccionarioSerializado['arrFotos'] = self.arrFotos
+        
 
-            # AGREGAR CAMPOS COMO TRANSIENT:
-            #diccionarioSerializado['fecha'] = self.fechaEntrega
-
-            #QUITAR CAMPOS AL DICCIONARIO:
-            #diccionarioSerializado.pop("precio")
-
-        return diccionarioSerializado
+        return diccionarioSerializado   
