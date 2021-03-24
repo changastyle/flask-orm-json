@@ -1,0 +1,103 @@
+<!-- 1 - BANNER (DESAPARECE) COLAPSABLE: -->
+<div class="banner-colapsable-bs4 col-12 flex-center" id="banner">
+
+      <!-- 2 - LOGO BANNER (DESAPARECE) COLAPSABLE:-->
+      <a href="../home/home.jsp">
+            <img class="img-banner-bs4" ng-src="{{instalacion.logo.fullFoto}}">
+      </a>
+      <!-- {{instalacion.logo}} -->
+</div>
+
+
+<!-- 3 - BANNER (FIJO) STICKY -->
+<div class="banner-sticky col-12 sin-padding sticky" style="background-color:{{instalacion.colorPri}}"
+      ng-hide="cargandoInstalacion">
+
+      <!-- 4 - CENTRADOR BANNER (FIJO):-->
+      <div class="centrador-banner-sticky col-12   sin-padding">
+
+            <!-- 1 - BANNER -->
+            <div class="banner flex flex-center-v">
+
+                  <!-- 1 - BANNER IZQ: -->
+                  <div class="banner-izq partes-banner"
+                        ng-class="{'true':'banner-izq-der-xs','false':'banner-izq-der-xl'}[xs]">
+                        [% include 'comun/banner-izq.html' %]
+                  </div>
+
+                  <!-- 1 - BANNER MID: -->
+                  <div class="banner-mid partes-banner d-none d-sm-block flex-center-v flex-center">
+                        mid
+                  </div>
+
+                  <!-- 1 - BANNER DERD: -->
+                  <div class="banner-der partes-banner  flex-center-v flex-right"
+                        ng-class="{'true':'banner-izq-der-xs','false':'banner-izq-der-xl'}[xs]">
+                        der
+                  </div>
+
+            </div>
+
+            <!-- 4 - MENU ITEMS :-->
+            <div class="contenedor-menu-items ">
+
+                  <div class="menu-item-verticales" ng-repeat="relPagina in perfilWeb.arrRelsPaginas"
+                        ng-show="relPagina.activo && relPagina.pagina.mostrarEnMenu">
+                        <a class="a-menu-item" href="{{relPagina.pagina.enlace}}">
+                              <i class="fa {{relPagina.pagina.icono}}"></i>
+                              {{relPagina.pagina.nombre}}
+                        </a>
+                  </div>
+            </div>
+      </div>
+</div>
+<style>
+      .banner {
+            border: solid 1px red;
+      }
+
+      .partes-banner {
+            border: solid 1px blue;
+            height: 45px;
+            ;
+      }
+
+      .banner-izq-der-xl {
+            width: 200px;
+      }
+
+      .banner-izq-der-xs {
+            width: 50%;
+      }
+
+      .banner-izq {}
+
+      .banner-der {}
+
+      .banner-mid {
+            width: calc(100% - 400px);
+      }
+
+      .contenedor-menu-items {
+            /*background-color: black;*/
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            border-radius: 0px 0px 6px 0px;
+            height: 10px;
+            min-width: 200px;
+            width: fit-content;
+            border: solid 1px red;
+            background-color: red;
+
+      }
+
+      .contenedor-menu-items-xs {
+            width: 100%;
+      }
+
+      .contenedor-menu-items-lg {
+            width: max-content;
+      }
+</style>

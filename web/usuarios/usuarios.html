@@ -1,0 +1,31 @@
+[% extends 'comun/formato-comun.html' %]
+
+[% block content %]
+<div class="cuerpo">
+
+      [% include 'usuarios/listado-usuarios.html'%]
+</div>
+
+<script>
+      app = angular.module('app', []);
+      app.controller('controller', function ($scope)
+      {
+            [% include('fn/comunes-fn.js') %]
+            [% include('fn/resize-listener.js') %]
+            [% include('fn/fn-usuarios.js') %]
+
+            $scope.mostrarBusqueda = true;
+            $scope.init = function ()
+            {
+                  // 0 - PIDO DATOS DE LA INSTALACION:
+                  url = window.location.href;
+                  console.log("URL :" + url);
+                  $scope.getInstalacionSegunURL(url, false);
+                  $scope.findUsuarios()
+                  // $scope.fkProdUrl = $scope.dameValorDelParametroFromURL('fkProducto');
+                  // $scope.verMasZonasEnviosHome = false;
+            }
+
+      });
+</script>
+[% endblock %]

@@ -45,7 +45,10 @@ class Instalacion(db.Base):
     bullets = Column(Boolean , default=False)
     activo = Column(Boolean , default=True)
 
-    arrFotos = relationship("Foto" ,back_populates="_instalacion")
+    # arrFotos = relationship("Foto" ,back_populates="_instalacion")
+
+    fkLogo  = Column(Integer , ForeignKey('fotos.id'))
+    logo = relationship("Foto" , foreign_keys=[fkLogo])
     # fkLogo = Column('fkLogo' , Integer , ForeignKey('fkLogo'))
     
 
@@ -85,34 +88,18 @@ class Instalacion(db.Base):
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-    def default(self, obj):
-        if isinstance(obj.__class__, DeclarativeMeta):
-            # an SQLAlchemy class
-            fields = {}
-            for field in [x for x in dir(obj) if not x.startswith('_') and x != 'metadata']:
-                data = obj.__getattribute__(field)
-                try:
-                    json.dumps(data) # this will fail on non-encodable values, like other classes
-                    fields[field] = data
-                except TypeError:
-                    fields[field] = None
-            # a json-encodable dict
-            return fields
-
-        return json.JSONEncoder.default(self, obj)
-
     def serializar(self):
                 
         diccionarioSerializado = controller.serializar(self)
 
         #QUITAR CAMPOS AL DICCIONARIO:
-        # arrAttsRm = ['pass','foto']
-        # for attRm in arrAttsRm:
-        #     if attRm in arrAttrs: 
-        #         del diccionarioSerializado['attRm']
+        arrAttsRm = ['passw', 'clientID' , 'clientSecret']
+        for attRm in arrAttsRm:
+            if attRm in arrAttsRm: 
+                del diccionarioSerializado[attRm]
 
         # AGREGAR CAMPOS COMO TRANSIENT:
-        #diccionarioSerializado['arrFotos'] = self.arrFotos
+        # diccionarioSerializado['fkLogo'] = self.logo.serializar()
         
 
         return diccionarioSerializado

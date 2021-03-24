@@ -1,0 +1,27 @@
+<!-- H BARRITAS HAMB MENU IZQ: -->
+<div class="h-categorias col-12 sin-padding flex-center-v pointer" ng-click="mostrarMenu()">
+
+      <!-- BARRITAS MENU IZQ: -->
+      <i class="fas fa-bars" ng-hide="deboMostrarMenu"></i>
+      <i class="fas fa-times" ng-show="deboMostrarMenu"></i>
+
+      <!-- DEBUG DE ANCHO DE PANTALLA Y PORCENTAJE SCROLL MENUS MID (DEJARLO AHI):-->
+      <!--{{porcentajeScrollLateral}}% -->
+
+      <!-- NOMBRE AL LADO BARRITAS MENU IZQ: -->
+      <span class="nombre-menu">
+            Menu -
+      </span>
+      <span>{{ancho}}</span>
+</div>
+<style>
+      .h-categorias {
+            padding-left: 12px;
+            font-size: 26px;
+            /*border: solid 1px red;*/
+      }
+
+      .nombre-menu {
+            padding-left: 6px;
+      }
+</style>

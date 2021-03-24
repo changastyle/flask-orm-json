@@ -12,22 +12,17 @@
     <title>[% block title%]TEST ORM[% endblock %]</title>
 
     <link rel="stylesheet" href="res/css/comun.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://kit.fontawesome.com/01ed377a67.js" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 </head>
 
-<body ng-app="app" ng-controller="controller" ng-init="init()" ng-cloak>
+<body class="body" ng-app="app" ng-controller="controller" ng-init="init()" ng-cloak>
 
-    <!-- 1 - BANNER -->
-    <div class="banner flex">
-        <div class="banner-izq partes-banner">
-            izq
-        </div>
-        <div class="banner-mid partes-banner">
-            mid
-        </div>
-        <div class="banner-der partes-banner">
-            der
-        </div>
-    </div>
+    [% include 'comun/banner.html'%]
+
     <div class="contenedor-principal">
         [% block content %]
 
@@ -39,6 +34,12 @@
 
 </html>
 <style>
+    .body {
+        min-width: 300px;
+        width: auto !important;
+        /* Firefox will set width as auto */
+    }
+
     .contenedor-principal {
         border: solid 1px red;
     }

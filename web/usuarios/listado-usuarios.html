@@ -1,0 +1,20 @@
+<div class="cont-listado-usuarios">
+
+      <div class="cont-search-listado-usuarios">
+            <label for="">Busqueda..</label>
+            <input type="text" ng-model="busqUsuarios" class="form-control">
+      </div>
+      <div class="cont-item-listado-usuarios">
+            <div class="item-listado-usuarios" ng-repeat="usuario in arrUsuarios | filter: busqUsuarios">
+                  {{usuario.nombre}}
+                  {{usuario.fkRol}}
+            </div>
+      </div>
+
+
+</div>
+<style>
+      .cont-listado-usuarios {
+            border: solid 1px red;
+      }
+</style>

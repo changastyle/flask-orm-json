@@ -5,8 +5,9 @@ from ct import db
 from modelo.Instalacion import Instalacion
 from flask import Blueprint, render_template
 import inspect
-
-
+from flask import request
+from sqlalchemy import and_, or_, not_
+from ct import controller
 wsInstalaciones = Blueprint('wsInstalaciones',__name__,static_folder='static', template_folder='templates')
 
 
@@ -26,6 +27,32 @@ def getInstalacion(id):
         return rta.serializar()
     else:
         return jsonify(None)
+
+@wsInstalaciones.route('/getInstalacionSegunURL/<url>')
+def getInstalacionSegunURL(url):
+    
+    url = controller.limpiarURL(url , request)
+
+    print("URL RECIBIDA: " + url)
+
+    search = "%" + url + "%"
+
+    print("SEARCH:" + search)
+
+    rta = db.session.query(Instalacion).filter(
+        or_(
+            Instalacion.urlDominio.like(search),
+            Instalacion.urlDominioDos.like(search)
+        )
+    ).first()
+    
+
+    if rta != None:
+        return rta.serializar()
+    else:
+        return jsonify(None)
+
+    return rta
 
 
 @wsInstalaciones.route('/findInstalaciones')

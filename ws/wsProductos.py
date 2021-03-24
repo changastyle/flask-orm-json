@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, make_response, json
+from ct import db, controller
 from modelo.Producto import Producto
 from flask import Blueprint, render_template
 

@@ -1,20 +1,44 @@
-@import "chota.css";
+@import "banner.css";
+@import "banner-sticky.css";
 
+* {
+	font-family: "Raleway", sans-serif;
+}
 .flex {
 	display: flex;
 }
-.banner {
-	border: solid 1px red;
+.flex-center {
+	display: flex;
+	justify-content: center;
 }
-.partes-banner {
-	border: solid 1px blue;
+.flex-center-v {
+	display: flex;
+	align-items: center;
 }
-.banner-izq {
-	width: 100px;
+.flex-right {
+	display: flex;
+	justify-content: flex-end;
 }
-.banner-der {
-	width: 100px;
+
+.sin-padding {
+	padding-right: 0px;
+	padding-left: 0px;
 }
-.banner-mid {
-	width: calc(100% - 200px);
+.sin-padding-left {
+	padding-right: 0px;
+}
+.sin-padding-right {
+	padding-right: 0px;
+}
+.sticky {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+}
+.cuerpo {
+	height: 1500px;
+	background-color: lightgrey;
+}
+.pointer {
+	cursor: pointer;
 }

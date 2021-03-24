@@ -1,6 +1,5 @@
 import datetime
-from ct import db
-from ct import controller
+from ct import db, controller
 from sqlalchemy import Column, Integer, Float, Text, DateTime
 
 class Producto(db.Base):

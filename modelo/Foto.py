@@ -15,7 +15,7 @@ class Foto(db.Base):
     urlProvisoria = Column(Text, nullable=False)
 
     fkInstalacion  = Column(Integer , ForeignKey('instalaciones.id'))
-    _instalacion = relationship("Instalacion", back_populates="arrFotos")
+    # _instalacion = relationship("Instalacion", back_populates="arrFotos")
 
     activo = Column(Boolean , default=True)
 
@@ -31,16 +31,27 @@ class Foto(db.Base):
 
 
     def serializar(self):
+                
         diccionarioSerializado = controller.serializar(self)
 
         #QUITAR CAMPOS AL DICCIONARIO:
-        # arrAttsRm = ['pass','foto']
+        # arrAttsRm = ['arrFotos']
         # for attRm in arrAttsRm:
-        #     if attRm in arrAttrs: 
-        #         del diccionarioSerializado['attRm']
+        #     if attRm in arrAttsRm: 
+        #         del diccionarioSerializado[attRm]
 
         # AGREGAR CAMPOS COMO TRANSIENT:
-        #diccionarioSerializado['arrFotos'] = self.arrFotos
+        diccionarioSerializado['fullFoto'] = self.getFullFoto()
         
 
         return diccionarioSerializado
+    def getFullFoto(self):
+        
+        # urlFull = MasterController.dameConfigMaster().getUrlVisualizacion();
+        
+        # String carpetaWebInstalacion = instalacion.getCarpetaWeb();
+        carpetaWebInstalacion = "http://localhost/upload/ecommerce/easy-veggie"
+        
+        urlFull =  carpetaWebInstalacion + "/" + self.urlProvisoria
+        
+        return urlFull;

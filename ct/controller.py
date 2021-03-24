@@ -4,6 +4,7 @@ import time
 import datetime
 
 def serializar(self):
+    
     arrAttrs = {}
     
     arrKeys = inspect(self).attrs.keys()
@@ -14,8 +15,9 @@ def serializar(self):
         # print(str(nombreAttrLoop) + " | " + tipoDato +" | " )
 
         if  nombreAttrLoop.startswith('_') or str(nombreAttrLoop).startswith("fk"):
-            if nombreAttrLoop in arrAttrs: 
-                del arrAttrs[nombreAttrLoop]
+            arrAttrs[nombreAttrLoop] = valorLoop
+            # if nombreAttrLoop in arrAttrs: 
+                # del arrAttrs[nombreAttrLoop]
         elif  tipoDato == "<class 'datetime.datetime'>":
             timestamp =  time.mktime(valorLoop.timetuple())
 
@@ -51,3 +53,48 @@ def serializar(self):
             arrAttrs[nombreAttrLoop] = valorLoop 
 
     return arrAttrs
+
+def limpiarURL(url , request):
+    
+    posDotCom = -1
+    posDosPuntos = -1
+
+    strHttp = "://"
+    strDotCom = ".com"
+    strDosPuntos = ":"
+
+    urlGet = request.args.get('url')
+    if urlGet != None:
+        url = urlGet
+
+    print("URL PROCESADA: " + str(url))
+    
+    if url != None:
+        posSlash = url.index(strHttp)
+        
+        # HTTP:
+        if strHttp in url:
+            posHttp = url.index(strHttp)
+
+            if posHttp > -1:
+                largoPosHttp = len(strHttp)
+                largoTotal = posHttp + largoPosHttp
+                url = url[ largoTotal : ]
+
+        # DOT COM:            
+        if strDotCom in url:
+            posDotCom = url.index(strDotCom)
+
+            if posDotCom > -1:
+                url = url[0 : posDotCom]
+
+        # DOS PUNTOS:            
+        if strDosPuntos in url:
+            posDosPuntos = url.index(strDosPuntos)
+
+            if posDosPuntos > -1:
+                url = url[0 : posDosPuntos]
+    
+
+    print("URL PROCESADA: " + str(url))
+    return url

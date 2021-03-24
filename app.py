@@ -3,7 +3,10 @@ from ct import db
 from ws.wsProductos import wsProductos
 from ws.wsTareas import wsTareas
 from ws.wsInstalaciones import wsInstalaciones
+from ws.wsPagina import wsPagina
 from ws.wsFotos import wsFotos
+from ws.wsRol import wsRol
+from ws.wsUsuario import wsUsuario
 from modelo.Producto import Producto
 
 # -1 - FLASK CONFIG:
@@ -29,11 +32,15 @@ app.register_blueprint(wsProductos,url_prefix='')
 app.register_blueprint(wsTareas,url_prefix='')
 app.register_blueprint(wsInstalaciones,url_prefix='')
 app.register_blueprint(wsFotos,url_prefix='')
+app.register_blueprint(wsPagina,url_prefix='')
+app.register_blueprint(wsUsuario,url_prefix='')
+app.register_blueprint(wsRol,url_prefix='')
 #
 #  1 - INDEX HTML:
 @app.route('/')
 def index():
-    return render_template("tareas/tareas.html")
+    return render_template("home/home.html")
+    # return render_template("tareas/tareas.html")
 
 # 2 - RES FOLDER:
 @app.route("/res/<path:path>")
@@ -56,4 +63,4 @@ def add_header(r):
 if __name__ == '__main__':
     #REPOBLAR DATABASE:
     db.Base.metadata.create_all(db.engine)
-    app.run("127.0.0.1", 8000 , debug=DEBUG)
+    app.run("localhost", 8000 , debug=DEBUG)

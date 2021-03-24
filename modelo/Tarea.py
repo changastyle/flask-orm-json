@@ -2,7 +2,7 @@ import datetime
 
 from sqlalchemy.sql.sqltypes import Boolean
 from ct import db
-from modelo import Cliente
+from modelo import Usuario
 from ct import controller
 from sqlalchemy import Column, Integer, Float, Text, DateTime ,ForeignKey
 from sqlalchemy.orm import relationship
@@ -17,8 +17,8 @@ class Tarea(db.Base):
     activa = Column(Boolean , default=True)
     terminada = Column(Boolean , default=False)
 
-    fkCliente  = Column(Integer , ForeignKey('clientes.id'))
-    cliente = relationship("Cliente" )
+    # fkCliente  = Column(Integer , ForeignKey('usuarios.id'))
+    # usuario = relationship("Usuario" )
     #arrFotos = ["perfil.jpg","frontal.jpg", "default.png"]
 
     def __init__(self, titulo):

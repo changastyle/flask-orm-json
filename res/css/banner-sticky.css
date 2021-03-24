@@ -1,0 +1,16 @@
+.banner-sticky {
+	height: 46px;
+	/*        background-color: var(--primario);*/
+	color: white;
+	z-index: 100;
+	/*margin-bottom: 50px;*/
+	font-family: "Kashie";
+	font-size: 32px;
+	/*height: 50px;*/
+}
+.centrador-banner-sticky {
+	/*padding-top: 8px;*/
+	justify-content: center;
+	align-content: center;
+	text-align: center;
+}
