@@ -2,7 +2,7 @@ $scope.getInstalacionSegunURL = function (url, forzar) {
 	$scope.cargando = false;
 
 	$.ajax({
-		url: "getInstalacionSegunURL/as",
+		url: "getInstalacionSegunURL/gInst",
 		data: {
 			url: url,
 		},

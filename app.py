@@ -26,6 +26,7 @@ app = CustomFlask(__name__)
 DEBUG = True
 app.static_folder = "res/"
 app.template_folder = "web/"
+app.secret_key = "CLAVE-MAESTRA-SESSION"
 
 # 0 REGISTER WS:
 app.register_blueprint(wsProductos,url_prefix='')
