@@ -1,0 +1,248 @@
+<!-- 1 - SUPER CONTENEDOR MENUS BANNER MID: -->
+<div class="super-cont-menus-banner-mid flex-justify  flex sin-padding" id="cont-menus">
+
+
+      <!-- 2 - CONTENEDOR MENUS EN EL MEDIO: -->
+      <div class="cont-mid col-12 sin-padding flex">
+
+
+
+            <!-- 2 - FLECHITA IZQ MENUS BANNER MID -->
+            <div class="cont-flechita-menus-mid cont-flechita-izq-menus-mid  flex-center-v flex-left""
+                  ng-click=" scrollMenusMidLateral('izq')">
+
+                  <i class="fas pointer fa-angle-double-left animate__animated animate__headShake animate__infinite infinite animate__slow"
+                        ng-hide="porcentajeScrollLateral == 0">
+                  </i>
+            </div>
+
+
+
+            <!-- 3 - VERDADERO CONTENEDOR MENUS BANNER MID: -->
+            <div class="verdadero-cont-mid-menus " id="cont-mid-menus">
+
+                  <!-- 4 - SCROLLEADOR : -->
+                  <div class="scrolleador-verdadero-cont-mid-menus flex-line "
+                        id="scrolleador-verdadero-cont-mid-menus">
+
+
+                        <div class="menu-item-banner-mid flex-center flex-center-v" ng-repeat="menu in arrPaginas"
+                              id="item-menu-{{menu.id}}" ng-mouseenter="desplegarMenu(menu)">
+
+                              <div class="nombre-item-menu-banner-mid flex-center-v flex-center">
+                                    <i class="icono-item-menu-banner-mid fab {{menu.icono}}"></i>
+                                    {{menu.nombre}}
+                              </div>
+                        </div>
+
+
+                  </div>
+            </div>
+
+
+
+            <!-- 7 - FLECHITA DER MENUS BANNER MID -->
+            <div class="cont-flechita-menus-mid cont-flechita-der-menus-mid flex-right flex-center-v"
+                  ng-click="scrollMenusMidLateral('der')">
+
+                  <i class="fas pointer fa-angle-double-right animate__animated animate__headShake animate__infinite infinite animate__slow"
+                        ng-hide="porcentajeScrollLateral >= 98">
+                  </i>
+            </div>
+      </div>
+</div>
+<style>
+      .super-cont-menus-banner-mid {
+            /* border: solid 1px yellow; */
+            width: 100%;
+            height: 50px;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            font-family: 'Raleway', sans-serif;
+            font-weight: bold;
+            color: grey;
+            /*padding-left: 12px;*/
+            /*padding-right: 12px;*/
+      }
+
+      .cont-mid {
+            /* border: solid 1px gold; */
+            /*height: 100%;*/
+            height: 50px;
+      }
+
+
+      .scrolleador-verdadero-cont-mid-menus {
+            width: min-content;
+            height: 50px;
+            /* border: solid 1px RED; */
+      }
+
+
+
+      .verdadero-cont-mid-menus {
+            height: 50px;
+            width: calc(100% - 100px);
+            /* border: solid 1px blue; */
+
+
+            overflow-x: auto;
+            white-space: nowrap;
+            overflow-y: hidden;
+            justify-content: flex-start;
+            align-content: center;
+            text-align: center;
+            padding-top: 0px;
+      }
+
+      .verdadero-cont-mid-menus::-webkit-scrollbar {
+            /* background-color: red; */
+            border-radius: 5px;
+            height: 0px;
+            /* height: 2px; */
+      }
+
+      .verdadero-cont-mid-menus::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 25px;
+      }
+
+      /* .verdadero-cont-mid-menus::-webkit-scrollbar {
+            display: none;
+
+      } */
+
+      .cont-flechita-menus-mid {
+            height: 50px;
+            width: 30px;
+            padding-top: 0px;
+            /* border: solid 1px white; */
+            color: white;
+      }
+
+
+      .cont-busqueda {
+            /* border: solid 1px white; */
+            display: flex;
+      }
+
+
+      .menu-item {
+            /*font-family: 'Ubuntu', sans-serif;*/
+            font-family: 'Lato', sans-serif;
+            /*font-family: 'Helvetica';*/
+            cursor: pointer;
+            box-sizing: border-box;
+            width: min-content;
+            /*border: solid 1px white;*/
+            /*width: 80px;*/
+            margin-right: 15px;
+            background-color: rgba(0, 0, 0, 0.12);
+            border-radius: 50px;
+            padding-left: 8px;
+            padding-right: 8px;
+            margin-top: 0px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            font-size: 20px;
+      }
+
+      .a-menu-item,
+      .a-menu-item:hover,
+      .a-menu-item:active {
+            /*font-family: 'Helvetica';*/
+            /*font-family: 'Ubuntu', sans-serif;*/
+            font-size: 20px;
+            width: auto;
+            margin: 0px;
+            /*font-family: 'Lato', sans-serif;*/
+            /*font-weight: bold;*/
+            text-decoration: none;
+            color: white;
+      }
+
+      .animacion-menus-mid {
+            /*position: absolute;*/
+            /*right: 0px;*/
+            background-color: rgba(0, 0, 0, 0.99);
+            padding: 6px;
+            padding-top: 2px;
+            border: solid 1px yellow;
+      }
+
+      .flex-line {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+      }
+
+
+      .menu-item-banner-mid {
+            /*flex-basis: 100%;*/
+            text-align: center;
+            /* padding: 12px; */
+            /*border: 1px solid black;*/
+            min-width: 140px;
+            transition: 0.3s;
+            cursor: pointer;
+            height: 30px;
+            padding: 12px;
+            margin-right: 6px;
+            margin-left: 6px;
+            font-family: 'Lato', sans-serif;
+
+            /*width: max-content;*/
+      }
+
+      .menu-item-banner-mid:hover {
+            color: #F1AD2D;
+            transition: 0.3s;
+      }
+
+      .nombre-item-menu-banner-mid {
+            font-size: 20px;
+            color: white;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 50px;
+            min-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Lato', sans-serif;
+            font-weight: normal;
+      }
+
+      .icono-item-menu-banner-mid {
+            padding-right: 8px;
+            font-size: 20px;
+      }
+</style>
+
+
+<!-- 1 - CONT MENUS BANNER MID:
+<div class="cont-menus-banner-mid flex-justify" id="cont-menus">
+
+
+      <div class="menu-item-banner-mid flex-center flex-center-v" ng-repeat="menu in arrPaginas"
+            id="item-menu-{{menu.id}}" ng-mouseenter="desplegarMenu(menu)">
+
+            <div class="nombre-item-menu-banner-mid flex-center-v flex-center">
+                  <i class="icono-item-menu-banner-mid fab {{menu.icono}}"></i>
+                  {{menu.nombre}}
+            </div>
+      </div>
+
+</div>
+-->
+<style>
+      /* .flex-justify {
+            display: flex;
+            align-items: center;
+            align-content: flex-start;
+            text-align: center;
+            justify-content: space-between;
+      }
+
+
+*/
+</style>

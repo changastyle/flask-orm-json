@@ -17,7 +17,7 @@ dbc=pymysql.connect(
         db=database,
         autocommit=True)
 
-engine = create_engine(f'mysql+pymysql://{user}:{passwd}@{host}/{database}')
+engine = create_engine(f'mysql+pymysql://{user}:{passwd}@{host}/{database}',  isolation_level="READ UNCOMMITTED")
 Base = declarative_base(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()

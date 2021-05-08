@@ -9,22 +9,30 @@ import modelo.Instalacion
 from sqlalchemy import Column, Integer, Float, Text, DateTime , ForeignKey
 from sqlalchemy.orm import relationship
 
-class Foto(db.Base):
-    __tablename__ = 'fotos'
+class Promo(db.Base):
+    __tablename__ = 'promos'
     id = Column(Integer, primary_key=True)
-    urlProvisoria = Column(Text, nullable=False)
+    href = Column(Text, nullable=False)
+    nombre = Column(Text, nullable=False)
+    titulo = Column(Text, nullable=False)
+    subtitulo = Column(Text, nullable=False)
+    terTitulo = Column(Text, nullable=False)
+
+
+    # FOTO:
+    fkFoto = Column(Integer , ForeignKey('fotos.id'))
+    foto = relationship('Foto' , foreign_keys=[fkFoto])
 
     fkInstalacion  = Column(Integer , ForeignKey('instalaciones.id'))
     # _instalacion = relationship("Instalacion", back_populates="arrFotos")
 
+    orden = Column(Integer , default=99)
+    xs = Column(Boolean , default=False)
     activo = Column(Boolean , default=True)
 
 
-    # @ManyToOne() @JoinColumn(name = "fkInstalacion") @JsonIgnore
-    # private Instalacion instalacion;
-
-    def __init__(self, urlProvisoria):
-        self.urlProvisoria = urlProvisoria
+    def __init__(self, href):
+        self.href = href
 
     def __str__(self):
         return self.urlProvisoria
@@ -41,17 +49,8 @@ class Foto(db.Base):
         #         del diccionarioSerializado[attRm]
 
         # AGREGAR CAMPOS COMO TRANSIENT:
-        diccionarioSerializado['fullFoto'] = self.getFullFoto()
+        # diccionarioSerializado['fullFoto'] = self.getFullFoto()
         
 
         return diccionarioSerializado
-    def getFullFoto(self):
-        
-        # urlFull = MasterController.dameConfigMaster().getUrlVisualizacion();
-        
-        # String carpetaWebInstalacion = instalacion.getCarpetaWeb();
-        carpetaWebInstalacion = "http://localhost/upload/ecommerce/easy-veggie"
-        
-        urlFull =  carpetaWebInstalacion + "/" + self.urlProvisoria
-        
-        return urlFull;
+   

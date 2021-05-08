@@ -1,0 +1,89 @@
+<div class="cont-iconos-banner-der flex-center-v flex-center">
+
+      <!-- LUPA -->
+      <span class="separador-icono-banner-der">
+
+            <i class="fas fa-search pointer botones-der" ng-hide="xs" ng-click="clickMostrarBusqueda()"
+                  aria-hidden="true">
+            </i>
+      </span>
+
+      <!-- MUÑECO -->
+      <span class="separador-icono-banner-der">
+            <div class="cont-usr-logeado partes-dentro-botones-der-barra">
+
+                  <i class="fas fa-user-tie pointer botones-der ng-hide" ng-click="clickCuadroLogin()"
+                        ng-hide="usuarioLogeado.id == -1" aria-hidden="true"></i>
+
+                  <i class="fas fa-user pointer botones-der" ng-show="usuarioLogeado.id == -1"
+                        ng-click="clickCuadroLogin()" aria-hidden="true"></i>
+            </div>
+      </span>
+
+
+      <!-- CARRITO: -->
+      <span class="separador-icono-banner-der">
+
+            <div class="boton-carrito-banner pointer partes-dentro-botones-der-barra" id="cont-animacion-btn-carrito">
+
+                  <i class="fas fa-shopping-cart pointer botones-der" ng-click="irACarrito()"></i>
+
+                  <div class="cont-hs-carrito flex" ng-click="clickMostrarCarrito()">
+
+                        <div class="h1-boton-carrito">
+                              <!-- {{"$"}}{{pedido.calcularTotal | roundTo: 3}} -->
+                        </div>
+                        <div class="h2-boton-carrito" ng-hide="xs">
+                              -
+                              <!-- {{pedido.calcularCantUnidades +" Articulos"}} -->
+                        </div>
+
+                  </div>
+            </div>
+      </span>
+</div>
+<style>
+      .cont-iconos-banner-der {}
+
+      .separador-icono-banner-der {
+            /* border: solid 1px yellow; */
+            height: 50px;
+            padding-left: 8px;
+            padding-right: 8px;
+      }
+</style>
+<style>
+      .boton-carrito-banner {
+            height: 40px;
+            font-family: 12px;
+            /*font-family: 'Lato', sans-serif;*/
+            /*border: solid 1px yellow;*/
+            /* padding-left: 6px;
+            padding-right: 6px; */
+      }
+
+      .cont-interior-boton-carrito {
+            height: 40px;
+      }
+
+      .cont-hs-carrito {
+            /*border: solid 1px white;*/
+            padding: 0px;
+            padding-left: 8px;
+            padding-top: 4px
+      }
+
+      .h1-boton-carrito {
+            font-size: 20px;
+            padding-bottom: 4px;
+            /*border: solid 1px white;*/
+      }
+
+      .h2-boton-carrito {
+            /*border: solid 1px white;*/
+            font-size: 14px;
+            opacity: 0.75;
+            padding-top: 5px;
+            padding-left: 4px;
+      }
+</style>

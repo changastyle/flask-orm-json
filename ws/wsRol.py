@@ -1,7 +1,13 @@
+from modelo.RelRolPagina import RelRolPagina
 from flask import Flask, jsonify, make_response, json
-from ct import db, controller
+from ct import db, Controller
 from modelo.Rol import Rol
+from modelo.Pagina import Pagina
+from modelo.Usuario import Usuario
+from modelo.Instalacion import Instalacion
+from modelo.RelRolPagina import RelRolPagina
 from flask import Blueprint, render_template
+from sqlalchemy import and_, or_, not_
 
 wsRol = Blueprint('wsRol',__name__,static_folder='static', template_folder='templates')
 
@@ -32,9 +38,60 @@ def getRolDefault():
     rta = db.session.query(Rol).filter_by(id=1).first()
     return rta
 
-@wsRol.route('/findRols')
+@wsRol.route('/findRols/')
 def findRols():
     arr = db.session.query(Rol).all()
+
+    arrSerializado = []
+    for itemLoop in arr:
+        arrSerializado.append(itemLoop.serializar()) 
+
+    return jsonify(arrSerializado)
+
+@wsRol.route('/damePaginasSegunUsuario/')
+def damePaginasSegunUsuario():
+
+    arrSerializado = []
+    arr = []
+    usuarioLogeado = Controller.comprobarUsuarioLogeadoSerial()      
+
+    jerarquiaOperador = 0
+
+    if usuarioLogeado != None:
+        jerarquiaOperador = usuarioLogeado.rol.jerarquia
+        print(str(type(usuarioLogeado)) + " - " + str(jerarquiaOperador))
+
+
+    try:
+        arr = db.session.query(Pagina).\
+        filter(Pagina.jerarquiaR <= jerarquiaOperador).\
+        filter(Pagina.mostrarEnMenu == True ).\
+        filter(Pagina.activo == True ).\
+        all()
+        
+    except Exception as e: 
+        print(e)
+        db.session.rollback()
+
+
+   
+
+    for itemLoop in arr:
+        print("subquery:" + str(itemLoop))
+        arrSerializado.append(itemLoop.serializar()) 
+
+        
+    return jsonify(arrSerializado)
+
+
+
+
+    
+
+
+@wsRol.route('/findAllRelRolsPagina/')
+def findAllRelRolsPagina():
+    arr = db.session.query(RelRolPagina).all()
 
     arrSerializado = []
     for itemLoop in arr:

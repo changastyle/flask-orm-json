@@ -1,7 +1,7 @@
 import datetime
 
 from flask.json import jsonify
-from ct import controller
+from ct import Serializador
 from sqlalchemy.sql.sqltypes import Boolean
 from ct import db
 from sqlalchemy.inspection import inspect
@@ -24,16 +24,15 @@ class Pagina(db.Base):
     orden = Column(Integer)
     activo = Column(Boolean, default=True)
 
-    def __init__(self, urlProvisoria):
-        self.urlProvisoria = urlProvisoria
+    def __init__(self):
+        pass
 
     def __str__(self):
-        return self.urlProvisoria
-
+        return "PAGINA" + str(id)
 
     def serializar(self):
                 
-        diccionarioSerializado = controller.serializar(self)
+        diccionarioSerializado = Serializador.serializar(self)
 
         #QUITAR CAMPOS AL DICCIONARIO:
         # arrAttsRm = ['arrFotos']

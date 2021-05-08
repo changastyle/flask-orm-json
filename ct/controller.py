@@ -2,57 +2,16 @@ from sqlalchemy.inspection import inspect
 from datetime import datetime as dt
 import time
 import datetime
+from flask import session , request , jsonify 
+from ct import  db
+from modelo.Usuario import Usuario
+from modelo.Instalacion import Instalacion
+from sqlalchemy import and_, or_, not_
 
-def serializar(self):
-    
-    arrAttrs = {}
-    
-    arrKeys = inspect(self).attrs.keys()
-    for nombreAttrLoop in arrKeys:
-        valorLoop = getattr(self, nombreAttrLoop)
-        tipoDato = str(type(valorLoop))
 
-        # print(str(nombreAttrLoop) + " | " + tipoDato +" | " )
 
-        if  nombreAttrLoop.startswith('_') or str(nombreAttrLoop).startswith("fk"):
-            arrAttrs[nombreAttrLoop] = valorLoop
-            # if nombreAttrLoop in arrAttrs: 
-                # del arrAttrs[nombreAttrLoop]
-        elif  tipoDato == "<class 'datetime.datetime'>":
-            timestamp =  time.mktime(valorLoop.timetuple())
+nombreVariableSesion = "user"
 
-            # print("FECHA RAW: " + str(valorLoop))
-            # print("VALOR: " + str(type(valorLoop)) + " = " + str(valorLoop))
-            # print("timestamp: " + str(type(timestamp)) + " = " + str(timestamp))
-
-            dt_object = dt.fromtimestamp(timestamp)
-            valorLoop = timestamp
-
-            arrAttrs[nombreAttrLoop] = valorLoop
-        elif str(type(valorLoop)).startswith("<class 'sqlalchemy.orm.collections.InstrumentedList'>"):
-
-            # EN EL CASO DE QUE SEA UNA LISTA DE OBJETOS:
-            arrAux = {}
-            contador = 0
-            for itemLoop in valorLoop:
-                fotoSerializada = itemLoop.serializar()
-                tipoFotoSerializada = type(fotoSerializada)
-                arrAux[contador] = itemLoop.serializar()
-                contador += 1
-
-            arrAttrs[nombreAttrLoop] = arrAux
-
-        elif str(type(valorLoop)) == "<class 'bool'>":
-            if valorLoop == True:
-                arrAttrs[nombreAttrLoop] = bool('true')
-            else:
-                arrAttrs[nombreAttrLoop] = bool('false')
-        elif str(type(valorLoop)).startswith("<class 'modelo.") :
-            arrAttrs[nombreAttrLoop] = valorLoop.serializar()
-        else:
-            arrAttrs[nombreAttrLoop] = valorLoop 
-
-    return arrAttrs
 
 def limpiarURL(url , request):
     
@@ -70,7 +29,6 @@ def limpiarURL(url , request):
     print("URL PROCESADA: " + str(url))
     
     if url != None:
-        posSlash = url.index(strHttp)
         
         # HTTP:
         if strHttp in url:
@@ -98,3 +56,116 @@ def limpiarURL(url , request):
 
     print("URL PROCESADA: " + str(url))
     return url
+
+
+
+
+
+
+
+# LOGEO DE USUARIOS:
+def loginSerial(user , passw):
+    rta = None
+
+
+    print("VOY A LOGEAR A :" + str(user) + " - " + str(passw));
+
+    usuarioDB = getUsuarioByEmailAndPassw(user , passw)
+
+    if usuarioDB != None:
+        rta = usuarioDB.serializar()
+        session[nombreVariableSesion] = rta
+
+    return rta
+
+def comprobarUsuarioLogeadoSerial():
+          
+    rta = None
+
+    if session != None:
+              
+        if session != None:
+            print("COMPROBANDO USUARIO LOGEADO: " + str(type(session)))
+            
+            if nombreVariableSesion in session:
+                      
+                usuarioSesionado =  session[nombreVariableSesion]
+
+                if usuarioSesionado != None:
+                    email = usuarioSesionado["email"]
+                
+                    if email != None:
+                              
+                        usuarioLogeado = getUsuarioByEmail(email)
+
+                        print("EL USUARIO LOGEADO ES: " + str(usuarioLogeado))
+
+                        if usuarioLogeado != None:
+                            rta = usuarioLogeado
+    
+    return rta
+    
+def getUsuarioByEmail(email):
+          
+    try:
+        rta = db.session.query(Usuario).filter_by(email = email).first()
+    except Exception as e: 
+        print(e)
+        db.session.rollback()
+
+   
+
+    return rta
+
+
+def exitSerial():
+    
+    rta = None
+
+    if session != None:
+              
+        if session != None:
+            
+            if nombreVariableSesion in session:
+                      
+                session[nombreVariableSesion]  = None
+                rta = None
+
+
+def getUsuarioByEmailAndPassw(email , passw):
+          
+    rta = db.session.query(Usuario).filter(
+        and_(
+            Usuario.email == email,
+            Usuario.passw == passw
+        )
+    ).first()
+
+    return rta
+
+def getInstalacionSegunURL(url):
+          
+    rta = None
+    
+    url = limpiarURL(url , request)
+
+    print("URL RECIBIDA: " + url)
+
+    search = "%" + url + "%"
+
+    print("SEARCH:" + search)
+
+    try:
+
+        rta = db.session.query(Instalacion).filter(
+            or_(
+                Instalacion.urlDominio.like(search),
+                Instalacion.urlDominioDos.like(search)
+            )
+        ).first()
+    
+    except Exception as e: 
+        print(e)
+        db.session.rollback()
+
+    return rta

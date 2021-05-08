@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy.sql.sqltypes import Boolean
 from ct import db
 from modelo import Usuario
-from ct import controller
+from ct import Serializador
 from sqlalchemy import Column, Integer, Float, Text, DateTime ,ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -29,7 +29,7 @@ class Tarea(db.Base):
 
     def serializar(self):
                 
-        diccionarioSerializado = controller.serializar(self)
+        diccionarioSerializado = Serializador.serializar(self)
 
         #QUITAR CAMPOS AL DICCIONARIO:
         # arrAttsRm = ['pass','foto']

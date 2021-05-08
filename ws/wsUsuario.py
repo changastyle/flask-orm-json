@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, make_response, json, session
-from ct import controller , db
+from ct import Controller , db
 from modelo.Usuario import Usuario
-from modelo import Rol
-from ws import wsRol
+from modelo.Rol import Rol
 from ws.wsInstalaciones import wsInstalaciones
 from ws.wsInstalaciones import getInstalacion
 from ws.wsInstalaciones import getInstalacionSegunURL
@@ -18,7 +17,6 @@ wsUsuario = Blueprint('wsUsuario',__name__,static_folder='static', template_fold
 #app.register_blueprint(wsUsuario,url_prefix='')
 
 
-nombreVariableSesion = "user"
 
 
 #|-------- VISTAS: --------|:
@@ -31,62 +29,20 @@ def ventanaUsuarios():
 #|-------- LOGIN DE USUARIOS: --------|:
 @wsUsuario.route('/login/<user>/<passw>')
 def login(user , passw):
-    rta = None
-
-
-    print("VOY A LOGEAR A :" + str(user) + " - " + str(passw));
-
-    usuarioDB = getUsuarioByEmailAndPassw(user , passw)
-
-    if usuarioDB != None:
-        rta = usuarioDB.serializar()
-        session[nombreVariableSesion] = rta
-
-    return jsonify(rta)
+    return jsonify(Controller.loginSerial(user, passw))
 
 @wsUsuario.route('/comprobarUsuarioLogeado/')
 def comprobarUsuarioLogeado():
     
-    rta = None
-
-    if session != None:
-              
-        if session != None:
-            print("COMPROBANDO USUARIO LOGEADO: " + str(type(session)))
-            
-            if nombreVariableSesion in session:
-                      
-                usuarioSesionado =  session[nombreVariableSesion]
-
-                if usuarioSesionado != None:
-                    email = usuarioSesionado["email"]
-                
-                    if email != None:
-                              
-                        usuarioLogeado = getUsuarioByEmail(email)
-
-                        print("EL USUARIO LOGEADO ES: " + str(email))
-
-                        if usuarioLogeado != None:
-                            rta = usuarioLogeado.serializar();
+    rta = Controller.comprobarUsuarioLogeadoSerial()
+    rta = rta.serializar()
     
     return jsonify(rta)
+
 
 @wsUsuario.route('/exit/')
 def exit():
-    
-    rta = None
-
-    if session != None:
-              
-        if session != None:
-            
-            if nombreVariableSesion in session:
-                      
-                session[nombreVariableSesion]  = None
-                rta = None;
-    
-    return jsonify(rta)
+    return jsonify(Controller.exitSerial)
 
 #|-------- FIND --------|:
 @wsUsuario.route('/findUsuarios')
@@ -119,24 +75,11 @@ def getUsuarioSerial(id):
         return jsonify(rta.serializar())
     else:
         return jsonify(None)
+        
 def getUsuario(id):
     rta = db.session.query(Usuario).filter_by(id=id).first()
     return rta
 
-def getUsuarioByEmail(email):
-    rta = db.session.query(Usuario).filter_by(email = email).first()
-
-    return rta
-def getUsuarioByEmailAndPassw(email , passw):
-    
-    rta = db.session.query(Usuario).filter(
-        and_(
-            Usuario.email == email,
-            Usuario.passw == passw
-        )
-    ).first()
-
-    return rta
 
 
 

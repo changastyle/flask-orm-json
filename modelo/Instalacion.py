@@ -1,7 +1,7 @@
 import datetime
 
 from flask.json import jsonify
-from ct import controller
+from ct import Serializador
 from sqlalchemy.inspection import inspect
 from sqlalchemy.sql.expression import true
 from modelo.Foto import Foto
@@ -90,7 +90,7 @@ class Instalacion(db.Base):
 
     def serializar(self):
                 
-        diccionarioSerializado = controller.serializar(self)
+        diccionarioSerializado = Serializador.serializar(self)
 
         #QUITAR CAMPOS AL DICCIONARIO:
         arrAttsRm = ['passw', 'clientID' , 'clientSecret']

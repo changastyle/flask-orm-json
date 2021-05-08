@@ -2,7 +2,7 @@
 <div class="banner-colapsable-bs4 col-12 flex-center" id="banner">
 
       <!-- 2 - LOGO BANNER (DESAPARECE) COLAPSABLE:-->
-      <a href="../home/home.jsp">
+      <a href="/">
             <img class="img-banner-bs4" ng-src="{{instalacion.logo.fullFoto}}">
       </a>
       <!-- {{instalacion.logo}} -->
@@ -10,56 +10,103 @@
 
 
 <!-- 3 - BANNER (FIJO) STICKY -->
-<div class="banner-sticky col-12 sin-padding sticky" style="background-color:{{instalacion.colorPri}}"
-      ng-hide="cargandoInstalacion">
+<div class="banner-sticky col-12 sin-padding sticky" ng-hide="cargandoInstalacion">
 
       <!-- 4 - CENTRADOR BANNER (FIJO):-->
-      <div class="centrador-banner-sticky col-12   sin-padding">
+      <div class="centrador-banner-sticky col-12   sin-padding" style="background-color:{{instalacion.colorPri}}">
 
             <!-- 1 - BANNER -->
             <div class="banner flex flex-center-v">
 
                   <!-- 1 - BANNER IZQ: -->
-                  <div class="banner-izq partes-banner"
+                  <div class="banner-izq partes-banner" ng-click="toggleMenus()"
                         ng-class="{'true':'banner-izq-der-xs','false':'banner-izq-der-xl'}[xs]">
                         [% include 'comun/banner-izq.html' %]
                   </div>
 
-                  <!-- 1 - BANNER MID: -->
+                  <!-- 2 - BANNER MID: -->
                   <div class="banner-mid partes-banner d-none d-sm-block flex-center-v flex-center">
-                        mid
+                        [% include 'comun/menus-banner-mid.html' %]
                   </div>
 
-                  <!-- 1 - BANNER DERD: -->
-                  <div class="banner-der partes-banner  flex-center-v flex-right"
+                  <!-- 3 - BANNER DERD: -->
+                  <div class="banner-der partes-banner  flex-center-v flex-center"
                         ng-class="{'true':'banner-izq-der-xs','false':'banner-izq-der-xl'}[xs]">
-                        der
+                        [% include 'comun/banner-der.html' %]
                   </div>
 
             </div>
 
-            <!-- 4 - MENU ITEMS :-->
-            <div class="contenedor-menu-items ">
+            <!-- 4 - MENU ITEMS ABAJO IZQUIERDA :-->
+            <div class="contenedor-menu-items " ng-show="menusVisibles"
+                  style="background: linear-gradient(to right,  {{instalacion.colorPri}}FF 35% ,  rgba(255,255,255,0) 100%); ">
+                  <div class="sombra-contenedor-menu-items">
 
-                  <div class="menu-item-verticales" ng-repeat="relPagina in perfilWeb.arrRelsPaginas"
-                        ng-show="relPagina.activo && relPagina.pagina.mostrarEnMenu">
-                        <a class="a-menu-item" href="{{relPagina.pagina.enlace}}">
-                              <i class="fa {{relPagina.pagina.icono}}"></i>
-                              {{relPagina.pagina.nombre}}
-                        </a>
+                        <div class="menu-item-verticales" ng-repeat="pagina in arrPaginas"
+                              ng-show="pagina.mostrarEnMenu">
+
+                              <a class="a-menu-item" href="{{pagina.enlace}}">
+                                    <i class="fa {{pagina.icono}}"></i>
+                                    {{pagina.nombre}}
+                              </a>
+                        </div>
                   </div>
             </div>
+
+            [% include 'comun/barra-busqueda-banner.html' %]
       </div>
 </div>
 <style>
+      .banner-colapsable-bs4 {
+            background-color: white;
+            text-align: center;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            z-index: 99;
+            font-family: "Kashie";
+      }
+
+      .centrador-banner-sticky {
+            /*padding-top: 8px;*/
+            height: 50px;
+            justify-content: center;
+            align-content: center;
+            text-align: center;
+      }
+
+      .banner-sticky {
+            height: 50px;
+            /*        background-color: var(--primario);*/
+            color: white;
+            z-index: 100;
+            /*margin-bottom: 50px;*/
+            font-family: "Kashie";
+            font-size: 32px;
+            /*height: 50px;*/
+      }
+
+      .centrador-banner-sticky {
+            /*padding-top: 8px;*/
+            justify-content: center;
+            align-content: center;
+            text-align: center;
+      }
+
+      .img-banner-bs4 {
+            height: 65px;
+      }
+
+
+
       .banner {
-            border: solid 1px red;
+            /* border: solid 1px red; */
       }
 
       .partes-banner {
-            border: solid 1px blue;
-            height: 45px;
-            ;
+            /* border: solid 1px red; */
+            height: 50px;
       }
 
       .banner-izq-der-xl {
@@ -80,24 +127,65 @@
 
       .contenedor-menu-items {
             /*background-color: black;*/
-            padding-left: 25px;
-            padding-right: 25px;
-            padding-top: 12px;
-            padding-bottom: 12px;
+            /* padding-left: 25px;
+            padding-right: 25px; */
+            /* padding-top: 12px;
+            padding-bottom: 12px; */
             border-radius: 0px 0px 6px 0px;
-            height: 10px;
+            max-height: calc(100vh - 110px);
             min-width: 200px;
             width: fit-content;
-            border: solid 1px red;
-            background-color: red;
-
+            overflow-y: auto;
+            overflow-x: hidden
       }
 
-      .contenedor-menu-items-xs {
+      ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+      }
+
+      .contenedor-menu-items::-webkit-scrollbar {
+            width: 4px;
+      }
+
+      .contenedor-menu-items::-webkit-scrollbar-thumb {
+            background-color: rgb(0, 0, 0, 0.5);
+            border-radius: 10px;
+      }
+
+      .sombra-contenedor-menu-items {
+            /* background: rgba(0, 0, 0, 0.25); */
+            width: 100%;
+            min-height: fit-content;
+      }
+
+      rgba(0, 0, 0, 0.25) .contenedor-menu-items-xs {
             width: 100%;
       }
 
       .contenedor-menu-items-lg {
             width: max-content;
+      }
+
+      .menu-item-verticales {
+            font-size: 24px;
+            font-family: 'Raleway', sans-serif;
+            color: white;
+            /* border: solid 1px white; */
+            text-align: left;
+            padding-left: 15px;
+            padding-top: 15px;
+      }
+
+      .a-menu-item,
+      .a-menu-item:hover,
+      .a-menu-item:active {
+            color: white;
+            text-decoration: none;
+
+            font-family: 'Ubuntu', sans-serif;
+            cursor: pointer;
+            text-align: left;
+            text-shadow: 2px 2px black;
       }
 </style>

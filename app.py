@@ -6,6 +6,7 @@ from ws.wsInstalaciones import wsInstalaciones
 from ws.wsPagina import wsPagina
 from ws.wsFotos import wsFotos
 from ws.wsRol import wsRol
+from ws.wsPromo import wsPromo
 from ws.wsUsuario import wsUsuario
 from modelo.Producto import Producto
 
@@ -36,12 +37,16 @@ app.register_blueprint(wsFotos,url_prefix='')
 app.register_blueprint(wsPagina,url_prefix='')
 app.register_blueprint(wsUsuario,url_prefix='')
 app.register_blueprint(wsRol,url_prefix='')
+app.register_blueprint(wsPromo,url_prefix='')
 #
 #  1 - INDEX HTML:
 @app.route('/')
-def index():
+def ventanaHome():
     return render_template("home/home.html")
     # return render_template("tareas/tareas.html")
+@app.route('/admin')
+def ventanaAdmin():
+    return render_template('admin/admin.html')
 
 # 2 - RES FOLDER:
 @app.route("/res/<path:path>")

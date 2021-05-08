@@ -1,0 +1,135 @@
+<div class="cont-barra-busqueda-banner-mid  col-12 offset-0 col-lg-6 offset-lg-3 "
+      style="background-color: {{instalacion.colorSec}}; top: 50px"
+      ng-class="{'true':'cont-rombo-barra-busqueda-banner-mid'}[lg || xl]" ng-show='mostrarBusqueda || xs || sm || md'>
+
+      <div class='espaciador-busqueda col-12'>
+
+            <div class="input-group">
+                  <input class="barra-busqueda form-control col-12" type="text"
+                        placeholder="Buscar productos ó categorias.."
+                        style="padding-top: 2px; padding-bottom: 2px; height: 32px;border-radius: 50px 0px 0px 50px;"
+                        ng-model="parametroBusqueda" ng-change="busqueda(parametroBusqueda)">
+
+                  <div class="input-group-append flex-center" style="background-color: white;
+                        height: 32px;
+                        font-size: 11px;
+                        border-radius: 0px 50px 50px 0px;
+                        overflow: hidden;">
+
+                        <button class="btn btn-outline-default pt-1 pb-0" ng-click="limpiarBusqueda()">
+
+                              <!-- LOADER ESTOY BUSCANDO: -->
+                              <span ng-show="!estoyBuscando">
+                                    <i class="fas fa-search" ng-show="parametroBusqueda.length == 0"></i>
+                                    <i class="fas fa-times" ng-show="parametroBusqueda.length > 0"></i>
+                              </span>
+                              <span ng-show="estoyBuscando">
+                                    <i class="fa fa-circle-o-notch fa-spin"></i>
+                              </span>
+                        </button>
+                  </div>
+            </div>
+
+            <div class="cont-resultados" ng-show='arrResultadosBusqueda.length > 0'>
+
+                  <!-- 1 - ITEM RESULTADO BUSQUEDA: -->
+                  <div class="item-resultado-busqueda" ng-repeat="resultadoBusqueda in arrResultadosBusqueda">
+
+                        <!-- 2 - CONTENEDOR FLEX: -->
+                        <div class="contenedor-varias-col-item-resultado flex">
+
+                              <!-- 3 - IMG RESULTADO BUSQUEDA: -->
+                              <div class="cont-img-item-resultado">
+                                    <img class="img-item-resultado" ng-src="{{resultadoBusqueda.imagen.fullFoto}}">
+                              </div>
+
+                              <!-- 4 - NOMBRE ITEM BUSQUEDA: -->
+                              <div class="cont-nombre-item-busqueda texto">
+                                    <div class="nombre-item-busqueda pointer" ng-click='ir(resultadoBusqueda.enlace)'>
+                                          {{resultadoBusqueda.nombre}}
+                                    </div>
+
+                                    <!-- 8 - LISTADO CANTIDADES RESULTADO BUSQUEDA - CLAVE VALOR: -->
+                                    <div class="cont-item-cv flex">
+
+                                          <div class="item-cv pointer" ng-repeat="cv in resultadoBusqueda.arrClaveValor"
+                                                ng-click="clickCvBusqueda(resultadoBusqueda, cv)"
+                                                ng-class="{'true':'cv-selected'}[cv.fk == resultadoBusqueda.cvSelected.fk]">
+                                                <!--{{cv.clave}} - {{"$" + cv.valor}}-->
+                                                {{"$" + cv.valor}}
+                                                {{cv.clave}}
+                                          </div>
+                                    </div>
+
+                                    <!--ng-show="resultadoBusqueda.selected"-->
+                                    <!--{{resultadoBusqueda.cvSelected}}-->
+                              </div>
+
+
+                              <!--  7 - PRECIO ITEM BUSQUEDA: -->
+                              <div class="cont-precio-item-busqueda bold"
+                                    style=" text-align: center;color: {{instalacion.colorPri}}">
+
+                                    <div class="precio-item-busqueda">
+                                          {{"$" + resultadoBusqueda.cvSelected.valor}}
+                                    </div>
+
+                                    <!-- 5 -- CONT CANTIDADES RESULTADO BUSQUEDA: -->
+                                    <div class="cant-item-busqueda bold flex">
+
+                                          <!-- 6 - SELECTOR DE CANTIDAD:-->
+                                          <div class="selector-cantidad-en-item-busqueda  flex sin-padding">
+
+                                                <!-- 6.1 - FLECHA MENOS: -->
+                                                <span class="btns-cants-en-item-busqueda btn-menos-en-item-busqueda pointer"
+                                                      ng-click="rmProductoAlCarritoFast(resultadoBusqueda)">
+                                                      <i class="fas fa-minus" style="color: white"></i>
+                                                </span>
+
+                                                <!-- 6.2 - CANTIDAD LLEVADA: -->
+                                                <span class="cant-llevada-en-item-busqueda">
+                                                      <span ng-show="resultadoBusqueda.cantidad > 0">
+                                                            x
+                                                      </span>
+                                                      {{resultadoBusqueda.cantidad}}
+                                                </span>
+
+                                                <!-- 6.3 - FLECHA MAS: -->
+                                                <span class="btns-cants-en-item-busqueda btn-mas-en-item-busqueda pointer"
+                                                      ng-click="addProductoAlCarritoFast(resultadoBusqueda)">
+                                                      <i class="fas fa-plus" style="color: white"></i>
+                                                </span>
+                                          </div>
+
+                                          <!-- 6.4 - CRUZETA ELIMINAR CANTIDAD RESULTADO BUSQUEDA: -->
+                                          <!--                            <div class="cont-x-cancelar-cant" ng-click="clickQuitarDetCarritoBusqueda(resultadoBusqueda, resultadoBusqueda.cvSelected.fk)">
+                                 <i class="fa fa-times" ng-show="resultadoBusqueda.selected"></i>
+                            </div>-->
+
+                                    </div>
+                              </div>
+
+                              <!-- ADD CARRITO FAST: -->
+                              <!--                    <div class="cont-add-carrito-fast">
+                        <i class="fas fa-shopping-cart pointer botones-der" style="padding-left:0px;"></i>
+                    </div>-->
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+<style>
+      .cont-barra-busqueda-banner-mid {
+            position: absolute;
+            /*top: 50px;*/
+            /*width: 400px;*/
+            font-family: 'Montserrat';
+            font-size: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+      }
+
+      .cont-rombo-barra-busqueda-banner-mid {
+            clip-path: polygon(0% 0%, 100% 0%, 97% 100%, 3% 100%);
+      }
+</style>

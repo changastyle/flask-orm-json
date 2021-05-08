@@ -1,9 +1,10 @@
 import datetime
 
 from flask.json import jsonify
-from ct import controller
+import ct.Serializador
 from sqlalchemy.sql.sqltypes import Boolean, Date
 from ct import db
+from ct import Serializador
 from sqlalchemy.inspection import inspect
 import modelo.Instalacion
 import modelo.Rol
@@ -49,7 +50,7 @@ class Usuario(db.Base):
 
     def serializar(self):
                 
-        diccionarioSerializado = controller.serializar(self)
+        diccionarioSerializado = Serializador.serializar(self)
 
         #QUITAR CAMPOS AL DICCIONARIO:
         arrAttsRm = ['passw']

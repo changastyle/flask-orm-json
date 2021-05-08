@@ -1,5 +1,5 @@
 import datetime
-from ct import db, controller
+from ct import db, Serializador , Controller
 from sqlalchemy import Column, Integer, Float, Text, DateTime
 
 class Producto(db.Base):
@@ -19,7 +19,7 @@ class Producto(db.Base):
 
     def serializar(self):
                 
-        diccionarioSerializado = controller.serializar(self)
+        diccionarioSerializado = Serializador.serializar(self)
 
         #QUITAR CAMPOS AL DICCIONARIO:
         # arrAttsRm = ['pass','foto']

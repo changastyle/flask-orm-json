@@ -7,7 +7,8 @@ from flask import Blueprint, render_template
 import inspect
 from flask import request
 from sqlalchemy import and_, or_, not_
-from ct import controller
+from ct import Controller
+import flask
 wsInstalaciones = Blueprint('wsInstalaciones',__name__,static_folder='static', template_folder='templates')
 
 
@@ -31,7 +32,7 @@ def getInstalacion(id):
 @wsInstalaciones.route('/getInstalacionSegunURL/<url>')
 def getInstalacionSegunURL(url):
     
-    url = controller.limpiarURL(url , request)
+    url = Controller.limpiarURL(url , request)
 
     print("URL RECIBIDA: " + url)
 
@@ -48,7 +49,10 @@ def getInstalacionSegunURL(url):
     
 
     if rta != None:
-        return rta.serializar()
+        if flask.request.method == 'POST' or flask.request.method == 'GET':
+            return rta.serializar()
+        else:
+            pass
     else:
         return jsonify(None)
 

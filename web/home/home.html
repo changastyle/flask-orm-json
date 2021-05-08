@@ -3,6 +3,7 @@
 [% block content %]
 <div class="cuerpo">
 
+      [% include 'home/partes/carrusel-home.html' %]
 </div>
 
 <script>
@@ -10,19 +11,44 @@
       app.controller('controller', function ($scope)
       {
             [% include('fn/comunes-fn.js') %]
-            [% include('fn/resize-listener.js') %]
+
+
 
             $scope.mostrarBusqueda = true;
             $scope.init = function ()
             {
                   // 0 - PIDO DATOS DE LA INSTALACION:
                   url = window.location.href;
-                  console.log("URL :" + url);
+                  posHttp = url.lastIndexOf("://") + 3
+                  posDosPuntos = url.lastIndexOf(":")
+                  console.log("URL :" + url + " - " + posHttp);
+                  if (posDosPuntos != -1)
+                  {
+                        url = url.substring(posHttp, posDosPuntos)
+                  }
+                  else
+                  {
+                        url = url.substring(posHttp, url.lenght)
+                  }
                   $scope.getInstalacionSegunURL(url, false);
 
+                  // $scope.refrescar();
                   // $scope.fkProdUrl = $scope.dameValorDelParametroFromURL('fkProducto');
                   // $scope.verMasZonasEnviosHome = false;
             }
+            // $scope.refrescar = function ()
+            // {
+            //       $scope.findPromos()
+            //       $scope.damePaginasSegunUsuario();
+            // }
+
+
+            // // $scope.menusVisibles = true;w
+            // $scope.toggleMenus = function ()
+            // {
+            //       $scope.menusVisibles = !$scope.menusVisibles;
+            //       $scope.$evalAsync();
+            // }
 
       });
 </script>

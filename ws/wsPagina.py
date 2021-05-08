@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, make_response, json
-from ct import db, controller
+from ct import db, Controller
 from modelo.Pagina import Pagina
+from modelo.RelRolPagina import RelRolPagina
 from flask import request
 from flask import Blueprint, render_template
 from sqlalchemy import and_, or_, not_
@@ -17,13 +18,17 @@ def getPerfilByURL(url):
     #Cliente usuarioLogeado = MasterController.dameClienteLogeadoFromDB(request);
         
     if url != None:
-        url = controller.limpiarURL(url , request)
+        url = Controller.limpiarURL(url , request)
 
         search = "%" + url + "%"
         
-        rta = db.session.query(Pagina).filter(
-                Pagina.enlace.like(search)
-        ).first()
+        try:
+            rta = db.session.query(Pagina).filter(Pagina.enlace.like(search)).first()
+        except Exception as e: 
+            print(e)
+            db.session.rollback()
+
+        
 
         if rta == None:
             print("PAGINA RTA: "+ str(rta))
@@ -64,8 +69,8 @@ def getPagina(id):
         return jsonify(None)
 
 
-@wsPagina.route('/findPaginas')
-def findPaginas():
+@wsPagina.route('/findPaginas/')
+def findPaginass():
     arr = db.session.query(Pagina).all()
 
     arrSerializado = []

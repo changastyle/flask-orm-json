@@ -1,0 +1,69 @@
+<!-- 1 - CARRUSEL XL:-->
+<div id="demoXL" class="carousel slide" ng-show="sm || md || lg || xl" data-interval="8000" data-ride="carousel">
+
+
+      <!-- 1 - CONTENEDOR DE FILMINAS - CONTENEDOR DE ITEMS: -->
+      <div class="carousel-inner d-block mx-auto">
+
+            <!-- 2 - CADA FILMINA LG :-->
+            <div class="carousel-item " ng-repeat='promo in arrPromos' ng-class="{'true':'active'}[$index == 0]">
+
+                  <img class='img-real-carru-home-lg' alt="{{promo.titulo}}"
+                        ng-click="redireccionamientoNewTab(promo.href)" ng-src="{{promo.foto.fullFoto}}">
+
+                  {{$index}}
+                  {{promo.foto.fullFoto}}
+                  <!--{{arrPromosLG.length}}-->
+            </div>
+
+      </div>
+
+      <!-- FLECHITAS IZQ & DER: -->
+      <a class="carousel-control-prev " href="#demoXL" data-slide="prev" ng-show="arrPromosLG.length > 1">
+            <span class="carousel-control-prev-icon bg-black-transpa flex-center"
+                  style="height: 50px;width: 50px;background-image: none;">
+                  <i class="fas fa-angle-left" style="font-size: 30px;"></i>
+            </span>
+      </a>
+      <a class="carousel-control-next" href="#demoXL" data-slide="next" ng-show="arrPromosLG.length > 1">
+            <span class="carousel-control-next-icon bg-black-transpa flex-center"
+                  style="height: 50px;width: 50px;background-image: none;">
+                  <i class="fas fa-angle-right" style="font-size: 30px;"></i>
+            </span>
+      </a>
+</div>
+
+{{arrPromos}}
+<style>
+      .img-real-carru-home-lg {
+            width: 100%;
+            min-height: 150px;
+            max-height: 600px;
+      }
+
+      .img-real-carru-home-xs {
+            width: 100%;
+            min-height: 315px;
+            max-height: 480px;
+            /*max-height: 600px;*/
+      }
+
+      #demoXS {
+            text-align: center;
+      }
+
+      #demoXL {
+            text-align: center;
+      }
+
+      .bg-black-transpa {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+      }
+
+      .bg-black-transpa:hover {
+            background-color: rgba(0, 0, 0, 0.50);
+            border-radius: 50px;
+      }
+      }
+</style>
